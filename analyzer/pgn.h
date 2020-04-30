@@ -637,6 +637,15 @@ static const Resolution types[MAX_RESOLUTION_LOOKUP] = {{"ASCII text", 0},
    ",3=Band pass"                   \
    ",4=Notch filter")
 
+#define LOOKUP_SIMRAD_PILOT_MODE              \
+  (",0=Standby"                               \
+   ",1=Auto"                                  \
+   ",2=Non Follow"                            \
+   ",3=Wind Mode"                             \
+   ",4=Track Mode"                            \
+   ",5=No Drift"                              \
+   ",16=")
+
 typedef struct
 {
   char *   description;
@@ -1404,6 +1413,22 @@ Pgn pgnList[] = {
 
     ,
     {"Simnet: Autopilot Mode",
+      65340,              /* NOTE 65341 in pgn.h maybe is not correct */
+      false,
+      0x08,
+      0,
+      {{"Manufacturer Code", 11, RES_MANUFACTURER, false, "=1857", "Simrad"},
+      {"Reserved", 2, RES_NOTUSED, false, 0, ""},
+      {"Industry Code", 3, RES_LOOKUP, false, "=4", "Marine Industry"},
+      {"Autopilot Status 1", BYTES(1), RES_LOOKUP, false, "=16", "Pilot ON"},
+      {"Autopilot Mode", BYTES(1), RES_LOOKUP, false, LOOKUP_SIMRAD_PILOT_MODE, ""},
+      {"Reserved", BYTES(1), RES_BINARY, false, 0, "0xfe"},
+      {"Autopilot Status 2", 3, RES_LOOKUP, false, "=2", "Pilot ON"},
+      {"Reserved", 5, RES_NOTUSED, false, 0, "0x1F"},
+      {"Reserved", BYTES(2), RES_BINARY, false, 0, "0x00, 0x80"}}}
+
+    ,
+    {"Simnet: Autopilot Mode",
      65341,
      false,
      0x08,
@@ -1423,7 +1448,9 @@ Pgn pgnList[] = {
       {"Industry Code", 3, RES_LOOKUP, false, "=4", "Marine Industry"},
       {"Wind Datum", BYTES(2), RES_RADIANS, false, "rad", ""},
       {"Rolling Average Wind Angle", BYTES(2), RES_RADIANS, false, "rad", ""},
-      {"Reserved", BYTES(2), 1, false, 0, ""}}},
+      {"Reserved", BYTES(2), 1, false, 0, ""}}}
+
+    ,
     {"Seatalk: Pilot Heading",
      65359,
      false,
