@@ -637,6 +637,12 @@ static const Resolution types[MAX_RESOLUTION_LOOKUP] = {{"ASCII text", 0},
    ",3=Band pass"                   \
    ",4=Notch filter")
 
+
+#define LOOKUP_SIMRAD_PILOT_STATE              \
+ (",0=Off"                                     \
+  ",2=On"                                      \
+  ",10=On")
+
 #define LOOKUP_SIMRAD_PILOT_MODE              \
   (",0=Standby"                               \
    ",1=Auto"                                  \
@@ -1420,10 +1426,10 @@ Pgn pgnList[] = {
       {{"Manufacturer Code", 11, RES_MANUFACTURER, false, "=1857", "Simrad"},
       {"Reserved", 2, RES_NOTUSED, false, 0, ""},
       {"Industry Code", 3, RES_LOOKUP, false, "=4", "Marine Industry"},
-      {"Autopilot Status 1", BYTES(1), RES_LOOKUP, false, "=16", "Pilot ON"},
+      {"Autopilot Status 1", BYTES(1), RES_LOOKUP, false, LOOKUP_SIMRAD_PILOT_STATE, ""},
       {"Autopilot Mode", BYTES(1), RES_LOOKUP, false, LOOKUP_SIMRAD_PILOT_MODE, ""},
       {"Reserved", BYTES(1), RES_BINARY, false, 0, "0xfe"},
-      {"Autopilot Status 2", 3, RES_LOOKUP, false, "=2", "Pilot ON"},
+      {"Autopilot Status 2", 3, RES_LOOKUP, false, LOOKUP_SIMRAD_PILOT_STATE, ""},
       {"Reserved", 5, RES_NOTUSED, false, 0, "0x1F"},
       {"Reserved", BYTES(2), RES_BINARY, false, 0, "0x00, 0x80"}}}
 
