@@ -2714,16 +2714,20 @@ Pgn pgnList[] = {
     {"Load Controller Connection State/Control",
      127500,
      PACKET_COMPLETE,
-     PACKET_FAST,
+     PACKET_SINGLE,
      {UINT8_FIELD("Sequence ID"),
       UINT8_FIELD("Connection ID"),
       UINT8_FIELD("State"),
       UINT8_FIELD("Status"),
       UINT8_FIELD("Operational Status & Control"),
       UINT8_FIELD("PWM Duty Cycle"),
-      UINT16_FIELD("TimeON"),
-      UINT16_FIELD("TimeOFF"),
-      END_OF_FIELDS}}
+      UINT8_FIELD("TimeON"),
+      UINT8_FIELD("TimeOFF"),
+      END_OF_FIELDS},
+     .url = "https://github.com/canboat/canboat/issues/366",
+     .explanation = "Observed as a single 8-byte frame on Naviop AT30 and Maretron/Carling mPower load "
+                    "controllers. TimeON/TimeOFF are 8 bits, not 16; treating this PGN as Fast (10-byte) "
+                    "makes analyzer treat Sequence ID 0xFF as a fast-packet index."}
 
     ,
     {"Binary Switch Bank Status",

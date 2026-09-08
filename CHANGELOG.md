@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Sections can be: Added Changed Deprecated Removed Fixed Security.
 
+## [Unreleased]
+
+### Changed
+- #366: PGN 127500 is a single 8-byte frame; TimeON/TimeOFF are 8 bits (Naviop AT30, Maretron mPower).
+
 ## [4.9.2]
 
 ### Fixed
